@@ -1,24 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Fragment } from "react";
+import "./App.css";
+import NavBar from "./components/NavBar";
+import QuoteBox from "./components/QuoteBox";
+import LoadingSpinner from "./UI/LoadingSpinner";
+import ErrorMessage from "./components/ErrorMessage";
+import Button from "./UI/Button";
 
 function App() {
+  const [quotes, setQuotes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchQuotes = async () => {
+    try {
+      const response = await axios.get("https://favqs.com/api/qotd");
+      // console.log(response.data)
+      setQuotes(response.data.quote);
+      setIsLoading(false);
+    } catch (error) {
+      setQuotes([]);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchQuotes();
+  }, []);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <div className="App">
+        <NavBar />
+      </div>
+      <main className="main">
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : quotes.length !== 0 ? (
+          <QuoteBox quotes={quotes} />
+        ) : (
+          <ErrorMessage />
+        )}
+      </main>
+      <div className="btn">
+        <Button onClick={fetchQuotes} >Next</Button>
+      </div>
+    </Fragment>
   );
 }
 

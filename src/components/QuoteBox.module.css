@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital@1&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&display=swap');
+.authorBox{
+    text-align: right;
+    /* border: 1px solid; */
+    margin-top: 5px;
+    line-height: 35px;
+    font-size: 20px;
+    padding: 5px 15px 0 0;
+    font-family: 'EB Garamond', serif;
+    color: black;
+}
+
+.quoteBox{
+    padding: 5px;
+    margin: 5px 0 5px 0;
+    font-family: 'Noto Serif', serif;
+}
